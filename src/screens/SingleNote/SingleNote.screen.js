@@ -1,5 +1,5 @@
-import React from 'react';
-import { StyleSheet, SafeAreaView, Text, TextInput, View } from 'react-native';
+import React, { useEffect } from 'react';
+import { StyleSheet, SafeAreaView, Text, TextInput, View, Button } from 'react-native';
 
 const styles = StyleSheet.create({
   input: {
@@ -12,8 +12,20 @@ const styles = StyleSheet.create({
   },
 });
 
-export const SingleNoteScreen = ({  route: { params } }) => {
-  const [noteText, setNoteText] = React.useState(undefined);
+export const SingleNoteScreen = ({ navigation, route: { params } }) => {
+  useEffect(() => {
+    navigation.setOptions({
+      title: params.title,
+      headerRight: () => (
+        <Button
+          title="Delete"
+          color="red"
+        />
+      ),
+    });
+  }, [navigation]);
+
+  const [noteText, setNoteText] = React.useState(params?.content);
 
   return (
     <SafeAreaView>

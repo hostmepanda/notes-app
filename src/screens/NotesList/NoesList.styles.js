@@ -47,6 +47,12 @@ export const styles = StyleSheet.create({
     width: '100%',
   },
   notesTitleWrapper: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'start',
+    alignItems: 'center',
+  },
+  notesTitleContainer: {
     width: '90%',
     paddingLeft: 20,
     paddingTop: 15,

@@ -9,7 +9,7 @@ const notes = [
   {
     id: 1,
     title: 'Very long title of a note',
-    content: 'some content of the note',
+    content: 'some content of the note one and it seems it\'s big',
   },
   {
     id: 2,
@@ -23,7 +23,7 @@ const notes = [
   },
 ];
 
-export const NotesListScreen = ({ navigation  }) => {
+export const NotesListScreen = ({ navigation }) => {
   const handleNotePress = ({ content, id, title, }) => {
     navigation.navigate(
       'Single note',
@@ -41,15 +41,10 @@ export const NotesListScreen = ({ navigation  }) => {
       <View style={styles.horizontalLine} />
       {notes.length && notes.map(({ content, id, title }) =>
         (<TouchableOpacity
-          style={styles.notesTitleWrapper}
+          style={styles.notesTitleContainer}
           key={id}
           onPress={() => handleNotePress({ content, id, title })}>
-          <View style={{
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'start',
-            alignItems: 'center',
-          }}>
+          <View style={styles.notesTitleWrapper}>
             <Text style={styles.notesTitle}>{title}</Text>
             <Text>></Text>
           </View>

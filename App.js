@@ -1,5 +1,6 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { Button } from 'react-native';
 import { NotesListScreen } from './src/screens/NotesList/NotesList.screen';
 import { SingleNoteScreen } from './src/screens/SingleNote/SingleNote.screen';
 
@@ -16,7 +17,6 @@ export default function App() {
       <Stack.Screen
         name="Single note"
         component={SingleNoteScreen}
-        options={({ route }) => ({ title: route.params.title })}
       />
     </Stack.Navigator>
   </NavigationContainer>
