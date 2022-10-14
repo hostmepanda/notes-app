@@ -23,13 +23,27 @@ const notes = [
   },
 ];
 
-export const NotesListScreen = () => {
+export const NotesListScreen = ({ navigation  }) => {
+  const handleNotePress = ({ content, id, title, }) => {
+    navigation.navigate(
+      'Single note',
+      {
+        content,
+        id,
+        title,
+      },
+    );
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.caption}>Super Notes App</Text>
       <View style={styles.horizontalLine} />
-      {notes.length && notes.map(({ id, title }) =>
-        (<TouchableOpacity style={styles.notesTitleWrapper} key={id}>
+      {notes.length && notes.map(({ content, id, title }) =>
+        (<TouchableOpacity
+          style={styles.notesTitleWrapper}
+          key={id}
+          onPress={() => handleNotePress({ content, id, title })}>
           <View style={{
             display: 'flex',
             flexDirection: 'row',
