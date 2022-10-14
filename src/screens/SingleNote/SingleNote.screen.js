@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { StyleSheet, SafeAreaView, Text, TextInput, View, Button } from 'react-native';
+import { DeleteModal } from './Delete.modal';
 
 const styles = StyleSheet.create({
   input: {
@@ -17,10 +18,7 @@ export const SingleNoteScreen = ({ navigation, route: { params } }) => {
     navigation.setOptions({
       title: params.title,
       headerRight: () => (
-        <Button
-          title="Delete"
-          color="red"
-        />
+        <DeleteModal/>
       ),
     });
   }, [navigation]);
