@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
 });
 
 export const SingleNoteScreen = ({  route: { params } }) => {
-  const [text, setText] = React.useState(undefined);
+  const [noteText, setNoteText] = React.useState(undefined);
 
   return (
     <SafeAreaView>
@@ -22,15 +22,9 @@ export const SingleNoteScreen = ({  route: { params } }) => {
         multiline={true}
         numberOfLines={40}
         style={styles.input}
-        onChangeText={setText}
-        value={text}
+        onChangeText={setNoteText}
+        value={noteText}
       />
     </SafeAreaView>
-  );
-
-  return (
-    <View style={{ padding: 20 }}>
-      <Text>{params.content}</Text>
-    </View>
   );
 };
