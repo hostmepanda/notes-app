@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Modal, Pressable, Text, TouchableOpacity, View } from 'react-native';
+import { Modal, Text, TouchableOpacity, View } from 'react-native';
 
 import { deleteNoteModalStyle as styles } from './DeleteNote.modal.style';
 
@@ -30,9 +30,9 @@ export const DeleteNoteModal = () => {
           </View>
         </View>
       </Modal>
-      <Pressable onPress={() => setIsModalVisible(true)}>
+      <TouchableOpacity onPress={() => setIsModalVisible(true)}>
         <Text style={styles.modalOpenButton}>Delete</Text>
-      </Pressable>
+      </TouchableOpacity>
     </View>
   );
 };
