@@ -17,7 +17,9 @@ const styles = StyleSheet.create({
 export const SingleNoteScreen = ({ navigation, route: { params } }) => {
   useEffect(() => {
     navigation.setOptions({
-      headerTitle: (props) => <ChangeTitleModal {...props} title={params.title} />,
+      headerTitle: (props) => (
+        <ChangeTitleModal {...props} title={params.title} navigation={navigation} />
+      ),
       headerRight: () => <DeleteNoteModal/>,
     });
   }, [navigation]);

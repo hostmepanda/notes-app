@@ -7,6 +7,12 @@ export const ChangeTitleModal = (props) => {
   const { title } = props;
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [modalTitle, setModalTitle] = useState(title);
+  const [noteTitle, setNoteTitle] = useState(title);
+
+  const saveOnPressHandler = () => {
+    setNoteTitle(modalTitle);
+    setIsModalVisible(false);
+  };
 
   return (
     <View style={styles.modalContainer}>
@@ -20,11 +26,15 @@ export const ChangeTitleModal = (props) => {
           <View style={styles.modalBody}>
             <View style={styles.modalTextWrapper}>
               <Text style={styles.modalText}>Enter title of the note</Text>
-              <TextInput style={styles.modalTextInput} value={modalTitle} onChange={setModalTitle}/>
+              <TextInput
+                style={styles.modalTextInput}
+                value={modalTitle}
+                onChangeText={setModalTitle}
+              />
             </View>
             <View style={styles.modalBodyHorizontalLine} />
             <View style={styles.modalFooter}>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={saveOnPressHandler}>
                 <Text style={styles.modalFooterLeftButton}>Save</Text>
               </TouchableOpacity>
               <View style={styles.modalFooterRightButton} />
@@ -38,7 +48,7 @@ export const ChangeTitleModal = (props) => {
       <TouchableOpacity
         style={styles.modalOpenButtonWrapper}
         onPress={() => setIsModalVisible(true)}>
-        <Text style={styles.modalOpenButton}>{title}</Text>
+        <Text style={styles.modalOpenButton}>{noteTitle}</Text>
       </TouchableOpacity>
     </View>
   );
