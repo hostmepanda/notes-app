@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { StyleSheet, SafeAreaView, TextInput } from 'react-native';
-import { DeleteNoteModal } from './DeleteNote.modal';
+import { ChangeTitleModal } from './Modals/ChangeTitle.modal';
+import { DeleteNoteModal } from './Modals/DeleteNote.modal';
 
 const styles = StyleSheet.create({
   input: {
@@ -16,10 +17,8 @@ const styles = StyleSheet.create({
 export const SingleNoteScreen = ({ navigation, route: { params } }) => {
   useEffect(() => {
     navigation.setOptions({
-      title: params.title,
-      headerRight: () => (
-        <DeleteNoteModal/>
-      ),
+      headerTitle: (props) => <ChangeTitleModal {...props} title={params.title} />,
+      headerRight: () => <DeleteNoteModal/>,
     });
   }, [navigation]);
 
