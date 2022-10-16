@@ -1,29 +1,12 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import React, { useContext } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
+import { NotesContext } from '../../context/NotesContext';
 
 import { styles } from './NotesList.styles';
 
-// TODO: replace with data fetched from DB
-const notes = [
-  {
-    id: 1,
-    title: 'Very long title of a note',
-    content: 'some content of the note one and it seems it\'s big',
-  },
-  {
-    id: 2,
-    title: 'title two',
-    content: 'some content of the note',
-  },
-  {
-    id: 3,
-    title: 'title three',
-    content: 'some content of the note',
-  },
-];
-
 export const NotesListScreen = ({ navigation }) => {
+  const { notes } = useContext(NotesContext);
   const handleNotePress = ({ content, id, title, shouldOpenTitleModal = false }) => {
     navigation.navigate(
       'Single note',
