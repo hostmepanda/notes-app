@@ -4,8 +4,8 @@ import { Modal, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { ChangeTitleModalStyle as styles } from './ChangeTitle.modal.style';
 
 export const ChangeTitleModal = (props) => {
-  const { title } = props;
-  const [isModalVisible, setIsModalVisible] = useState(false);
+  const { title, shouldOpenTitleModal } = props;
+  const [isModalVisible, setIsModalVisible] = useState(shouldOpenTitleModal ?? false);
   const [modalTitle, setModalTitle] = useState(title);
   const [noteTitle, setNoteTitle] = useState(title);
 
@@ -30,6 +30,7 @@ export const ChangeTitleModal = (props) => {
                 style={styles.modalTextInput}
                 value={modalTitle}
                 onChangeText={setModalTitle}
+                autoFocus={true}
               />
             </View>
             <View style={styles.modalBodyHorizontalLine} />

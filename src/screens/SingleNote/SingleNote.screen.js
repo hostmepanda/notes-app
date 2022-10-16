@@ -15,16 +15,21 @@ const styles = StyleSheet.create({
 });
 
 export const SingleNoteScreen = ({ navigation, route: { params } }) => {
+  const [noteText, setNoteText] = React.useState(params?.content);
+
   useEffect(() => {
     navigation.setOptions({
       headerTitle: (props) => (
-        <ChangeTitleModal {...props} title={params.title} navigation={navigation} />
+        <ChangeTitleModal
+          {...props}
+          title={params.title}
+          shouldOpenTitleModal={params.shouldOpenTitleModal}
+          navigation={navigation}
+        />
       ),
       headerRight: () => <DeleteNoteModal/>,
     });
   }, [navigation]);
-
-  const [noteText, setNoteText] = React.useState(params?.content);
 
   return (
     <SafeAreaView>

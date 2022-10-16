@@ -24,12 +24,13 @@ const notes = [
 ];
 
 export const NotesListScreen = ({ navigation }) => {
-  const handleNotePress = ({ content, id, title, }) => {
+  const handleNotePress = ({ content, id, title, shouldOpenTitleModal = false }) => {
     navigation.navigate(
       'Single note',
       {
         content,
         id,
+        shouldOpenTitleModal,
         title,
       },
     );
@@ -53,7 +54,15 @@ export const NotesListScreen = ({ navigation }) => {
       )}
       <StatusBar style="auto"/>
       <View style={styles.addButtonWrapper}>
-        <TouchableOpacity style={styles.addButtonCircle}>
+        <TouchableOpacity
+          style={styles.addButtonCircle}
+          onPress={() => handleNotePress({
+            content: '',
+            id: (new Date()).valueOf(),
+            title: 'New awesome note',
+            shouldOpenTitleModal: true,
+          })}
+        >
           <Text style={styles.addButton}>+</Text>
         </TouchableOpacity>
       </View>
