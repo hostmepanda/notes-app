@@ -2,7 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 
-import { styles } from './NoesList.styles';
+import { styles } from './NotesList.styles';
 
 // TODO: replace with data fetched from DB
 const notes = [

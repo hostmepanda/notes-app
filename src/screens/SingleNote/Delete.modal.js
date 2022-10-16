@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { Button, Modal, Pressable, Text, TouchableOpacity, View } from 'react-native';
+import { Modal, Pressable, Text, TouchableOpacity, View } from 'react-native';
+
+import { deleteModalStyle as styles } from './Delete.modal.style';
 
 export const DeleteModal = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -12,27 +14,14 @@ export const DeleteModal = () => {
         visible={isModalVisible}
         onRequestClose={() => setIsModalVisible(false)}
       >
-        <View
-          style={{
-            backgroundColor: 'white',
-            borderRadius: 10,
+        <View style={styles.modalFrame}>
+          <View style={{
             display: 'flex',
-            width: 200,
-            height: 100,
-            alignSelf: 'center',
-            top: '50%',
-            marginTop: -100,
-          }}
-        >
-          <View
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center',
-              alignItems: 'center',
-              height: '100%',
-            }}
-          >
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: '100%',
+          }}>
             <Text
               style={{
                 height: '50%',
@@ -66,9 +55,7 @@ export const DeleteModal = () => {
           </View>
         </View>
       </Modal>
-      <Pressable
-        onPress={() => setIsModalVisible(true)}
-      >
+      <Pressable onPress={() => setIsModalVisible(true)}>
         <Text style={{ color: 'red' }}>Delete</Text>
       </Pressable>
     </View>
