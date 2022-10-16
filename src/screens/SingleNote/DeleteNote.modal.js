@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Modal, Pressable, Text, TouchableOpacity, View } from 'react-native';
 
-import { deleteModalStyle as styles } from './Delete.modal.style';
+import { deleteNoteModalStyle as styles } from './DeleteNote.modal.style';
 
-export const DeleteModal = () => {
+export const DeleteNoteModal = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   return (

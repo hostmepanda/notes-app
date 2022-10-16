@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-export const deleteModalStyle = StyleSheet.create({
+export const deleteNoteModalStyle = StyleSheet.create({
   modalFrame: {
     backgroundColor: 'white',
     borderRadius: 10,
