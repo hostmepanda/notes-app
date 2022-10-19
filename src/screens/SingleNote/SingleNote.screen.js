@@ -27,7 +27,12 @@ export const SingleNoteScreen = ({ navigation, route: { params } }) => {
           navigation={navigation}
         />
       ),
-      headerRight: () => <DeleteNoteModal/>,
+      headerRight: (props) => <DeleteNoteModal
+        {...props}
+        navigation={navigation}
+        noteId={params.id}
+        shouldOpenTitleModal={params.shouldOpenTitleModal}
+      />,
     });
   }, [navigation]);
 

@@ -1,10 +1,26 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Modal, Text, TouchableOpacity, View } from 'react-native';
+import { NotesContext } from '../../../context/NotesContext';
 
 import { deleteNoteModalStyle as styles } from './DeleteNote.modal.style';
 
-export const DeleteNoteModal = () => {
+export const DeleteNoteModal = ({ navigation, noteId }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isDeleted, setIsDeleted] = useState(false);
+
+  const { deleteNote } = useContext(NotesContext);
+
+  const deleteNoteHandler = () => {
+    setIsModalVisible(false);
+    deleteNote(noteId);
+    setIsDeleted(true);
+  };
+
+  useEffect(() => {
+    if (isDeleted) {
+      navigation.goBack();
+    }
+  }, [isDeleted]);
 
   return (
     <View>
@@ -19,7 +35,7 @@ export const DeleteNoteModal = () => {
             <Text style={styles.modalText}>Do you want to delete the note?</Text>
             <View style={styles.modalBodyHorizontalLine} />
             <View style={styles.modalFooter}>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={deleteNoteHandler}>
                 <Text style={styles.modalFooterLeftButton}>Delete</Text>
               </TouchableOpacity>
               <View style={styles.modalFooterRightButton} />

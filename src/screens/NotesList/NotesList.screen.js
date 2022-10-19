@@ -6,8 +6,11 @@ import { NotesContext } from '../../context/NotesContext';
 import { styles } from './NotesList.styles';
 
 export const NotesListScreen = ({ navigation }) => {
-  const { notes } = useContext(NotesContext);
+  const { notes, addNote } = useContext(NotesContext);
   const handleNotePress = ({ content, id, title, shouldOpenTitleModal = false }) => {
+    if (shouldOpenTitleModal) {
+      addNote({ content, id, title });
+    }
     navigation.navigate(
       'Single note',
       {
@@ -23,7 +26,7 @@ export const NotesListScreen = ({ navigation }) => {
     <View style={styles.container}>
       <Text style={styles.caption}>Super Notes App</Text>
       <View style={styles.horizontalLine} />
-      {notes.length && notes.map(({ content, id, title }) =>
+      {notes.length > 0 && notes.map(({ content, id, title }) =>
         (<TouchableOpacity
           style={styles.notesTitleContainer}
           key={id}
