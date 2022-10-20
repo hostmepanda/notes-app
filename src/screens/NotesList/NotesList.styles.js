@@ -4,7 +4,7 @@ export const styles = StyleSheet.create({
   addButtonWrapper: {
     display: 'flex',
     position: 'absolute',
-    bottom: 50,
+    bottom: 30,
     width: 50,
     height: 50,
     justifyContent: 'center',

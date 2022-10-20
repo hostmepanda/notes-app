@@ -12,6 +12,76 @@ export const NotesState = ({ children }) => {
           title: 'Very long title of a note',
           content: 'some content of the note one and it seems it\'s big',
         },
+        {
+          id: 17,
+          title: 'Very long title of a note',
+          content: 'some content of the note one and it seems it\'s big',
+        },
+        {
+          id: 16,
+          title: 'Very long title of a note',
+          content: 'some content of the note one and it seems it\'s big',
+        },
+        {
+          id: 15,
+          title: 'Very long title of a note',
+          content: 'some content of the note one and it seems it\'s big',
+        },
+        {
+          id: 14,
+          title: 'Very long title of a note',
+          content: 'some content of the note one and it seems it\'s big',
+        },
+        {
+          id: 13,
+          title: 'Very long title of a note',
+          content: 'some content of the note one and it seems it\'s big',
+        },
+        {
+          id: 12,
+          title: 'Very long title of a note',
+          content: 'some content of the note one and it seems it\'s big',
+        },
+        {
+          id: 11,
+          title: 'Very long title of a note',
+          content: 'some content of the note one and it seems it\'s big',
+        },
+        {
+          id: 21,
+          title: 'Very long title of a note',
+          content: 'some content of the note one and it seems it\'s big',
+        },
+        {
+          id: 111,
+          title: 'Very long title of a note',
+          content: 'some content of the note one and it seems it\'s big',
+        },
+        {
+          id: 114,
+          title: 'Very long title of a note',
+          content: 'some content of the note one and it seems it\'s big',
+        },
+        {
+          id: 115,
+          title: 'Very long title of a note',
+          content: 'some content of the note one and it seems it\'s big',
+        },
+        {
+          id: 116,
+          title: 'Very long title of a note',
+          content: 'some content of the note one and it seems it\'s big',
+        },
+        {
+          id: 117,
+          title: 'Very long title of a note',
+          content: 'some content of the note one and it seems it\'s big',
+        },
+        {
+          id: 118,
+          title: 'Very long title of a note',
+          content: 'some content of the note one and it seems it\'s big',
+        },
       ]});
 
   const addNote = (props) => dispatch({
