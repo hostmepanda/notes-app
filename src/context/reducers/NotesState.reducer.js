@@ -1,6 +1,10 @@
 import { ActionTypes } from '../ActionTypes';
 
 export const NotesStateReducer = (state, { type, payload }) => {
+  if (!payload?.id) {
+    return state;
+  }
+
   switch (type) {
     case ActionTypes.addNote: {
       return {
@@ -8,9 +12,9 @@ export const NotesStateReducer = (state, { type, payload }) => {
         notes: [
           ...state.notes,
           {
-            id: (new Date()).valueOf(),
-            title: 'New amazing note',
-            content: '',
+            id: payload?.id ?? (new Date()).valueOf(),
+            title: payload?.title ?? 'New amazing note',
+            content: payload?.content ?? '',
           },
         ],
       };
@@ -22,17 +26,22 @@ export const NotesStateReducer = (state, { type, payload }) => {
       };
     }
     case ActionTypes.updateNote: {
-      return {
-        ...state,
-        notes: [
-          ...state.notes,
-          {
-            ...state.notes.find(({ id }) => id === payload.id),
-            title: payload.title,
-            content: payload.content,
-          }
-        ],
-      };
+      const untouchedNote = state.notes.filter(note => note.id !== payload.id) || [];
+      const updateNote = state.notes.find(({ id, title, content }) => id === payload.id);
+      if (updateNote) {
+        return {
+          ...state,
+          notes: [
+            ...untouchedNote,
+            {
+              ...updateNote,
+              title: payload.title ?? updateNote?.title,
+              content: payload.content ?? updateNote?.content,
+            }
+          ],
+        };
+      }
+      return state;
     }
     default: return state;
   }

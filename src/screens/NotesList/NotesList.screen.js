@@ -21,7 +21,6 @@ export const NotesListScreen = ({ navigation }) => {
       },
     );
   };
-
   return (
     <View style={styles.container}>
       <Text style={styles.caption}>Super Notes App</Text>

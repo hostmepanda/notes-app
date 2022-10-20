@@ -1,5 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { StyleSheet, SafeAreaView, TextInput } from 'react-native';
+import { NotesContext } from '../../context/NotesContext';
 import { ChangeTitleModal } from './Modals/ChangeTitle.modal';
 import { DeleteNoteModal } from './Modals/DeleteNote.modal';
 
@@ -16,6 +17,15 @@ const styles = StyleSheet.create({
 
 export const SingleNoteScreen = ({ navigation, route: { params } }) => {
   const [noteText, setNoteText] = React.useState(params?.content);
+  const { updateNote } = useContext(NotesContext);
+
+  const handleOnTextInput = (text) => {
+    setNoteText(text);
+  };
+
+  useEffect(() => {
+    updateNote({ id: params.id, content: noteText });
+  }, [noteText]);
 
   useEffect(() => {
     navigation.setOptions({
@@ -24,6 +34,7 @@ export const SingleNoteScreen = ({ navigation, route: { params } }) => {
           {...props}
           title={params.title}
           shouldOpenTitleModal={params.shouldOpenTitleModal}
+          noteId={params.id}
           navigation={navigation}
         />
       ),
@@ -43,7 +54,7 @@ export const SingleNoteScreen = ({ navigation, route: { params } }) => {
         multiline={true}
         numberOfLines={40}
         style={styles.input}
-        onChangeText={setNoteText}
+        onChangeText={handleOnTextInput}
         value={noteText}
       />
     </SafeAreaView>

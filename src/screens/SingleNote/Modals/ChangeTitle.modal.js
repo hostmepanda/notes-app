@@ -1,17 +1,24 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Modal, Text, TextInput, TouchableOpacity, View } from 'react-native';
 
+import { NotesContext } from '../../../context/NotesContext';
 import { ChangeTitleModalStyle as styles } from './ChangeTitle.modal.style';
 
 export const ChangeTitleModal = (props) => {
-  const { title, shouldOpenTitleModal } = props;
+  const { title, shouldOpenTitleModal, noteId } = props;
   const [isModalVisible, setIsModalVisible] = useState(shouldOpenTitleModal ?? false);
   const [modalTitle, setModalTitle] = useState(title);
   const [noteTitle, setNoteTitle] = useState(title);
 
+  const { updateNote } = useContext(NotesContext);
+
   const saveOnPressHandler = () => {
     setNoteTitle(modalTitle);
     setIsModalVisible(false);
+    updateNote({
+      id: noteId,
+      title: modalTitle,
+    });
   };
 
   return (
