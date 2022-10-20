@@ -26,18 +26,19 @@ export const NotesStateReducer = (state, { type, payload }) => {
       };
     }
     case ActionTypes.updateNote: {
-      const untouchedNote = state.notes.filter(note => note.id !== payload.id) || [];
-      const updateNote = state.notes.find(({ id, title, content }) => id === payload.id);
-      if (updateNote) {
+      const updateNoteIndex = state.notes.findIndex(({ id  }) => id === payload.id);
+
+      if (updateNoteIndex) {
+        const updateNote = state.notes[updateNoteIndex];
+        state.notes[updateNoteIndex] = {
+          ...updateNote,
+          title: payload.title ?? updateNote?.title,
+          content: payload.content ?? updateNote?.content,
+        };
         return {
           ...state,
           notes: [
-            ...untouchedNote,
-            {
-              ...updateNote,
-              title: payload.title ?? updateNote?.title,
-              content: payload.content ?? updateNote?.content,
-            }
+            ...state.notes,
           ],
         };
       }

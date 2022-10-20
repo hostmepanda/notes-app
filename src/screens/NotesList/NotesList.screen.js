@@ -25,7 +25,7 @@ export const NotesListScreen = ({ navigation }) => {
   const { notes, addNote } = useContext(NotesContext);
 
   const renderItem = ({ item, handleNotePress }) => {
-    return <NoteItem title={item.title} handleNotePress={handleNotePress}/>;
+    return <NoteItem title={item.title} id={item.id} content={item.content} handleNotePress={handleNotePress}/>;
   };
 
   const handleNotePress = ({ content, id, title, shouldOpenTitleModal = false }) => {
