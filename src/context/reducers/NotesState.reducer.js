@@ -1,5 +1,7 @@
 import { ActionTypes } from '../ActionTypes';
 
+const NOT_FOUND = -1;
+
 export const NotesStateReducer = (state, { type, payload }) => {
   if (!payload?.id) {
     return state;
@@ -28,7 +30,7 @@ export const NotesStateReducer = (state, { type, payload }) => {
     case ActionTypes.updateNote: {
       const updateNoteIndex = state.notes.findIndex(({ id  }) => id === payload.id);
 
-      if (updateNoteIndex) {
+      if (updateNoteIndex !== NOT_FOUND) {
         const updateNote = state.notes[updateNoteIndex];
         state.notes[updateNoteIndex] = {
           ...updateNote,
