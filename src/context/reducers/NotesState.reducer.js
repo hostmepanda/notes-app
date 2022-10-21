@@ -49,5 +49,5 @@ export const NotesStateReducer = (state, { type, payload }) => {
     return state;
   }
   const actionHandler = actionHandlers?.[type] ?? actionHandlers.DEFAULT;
-  actionHandler(state, payload);
+  return actionHandler(state, payload);
  };
