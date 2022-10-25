@@ -1,6 +1,7 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { StyleSheet, SafeAreaView, TextInput } from 'react-native';
-import { NotesContext } from '../../context/NotesContext';
+import { useDispatch } from 'react-redux';
+import { ActionTypes } from '../../store/actions/ActionTypes';
 import { ChangeTitleModal } from './Modals/ChangeTitle.modal';
 import { DeleteNoteModal } from './Modals/DeleteNote.modal';
 
@@ -17,14 +18,17 @@ const styles = StyleSheet.create({
 
 export const SingleNoteScreen = ({ navigation, route: { params } }) => {
   const [noteText, setNoteText] = React.useState(params?.content);
-  const { updateNote } = useContext(NotesContext);
+  const dispatch = useDispatch();
 
   const handleOnTextInput = (text) => {
     setNoteText(text);
   };
 
   useEffect(() => {
-    updateNote({ id: params.id, content: noteText });
+    dispatch({
+      type: `notes/${ActionTypes.updateNoteContent}`,
+      payload: { id: params.id, content: noteText },
+    });
   }, [noteText]);
 
   useEffect(() => {

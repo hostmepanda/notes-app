@@ -1,7 +1,8 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { Modal, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { useDispatch } from 'react-redux';
+import { ActionTypes } from '../../../store/actions/ActionTypes';
 
-import { NotesContext } from '../../../context/NotesContext';
 import { ChangeTitleModalStyle as styles } from './ChangeTitle.modal.style';
 
 export const ChangeTitleModal = (props) => {
@@ -10,15 +11,15 @@ export const ChangeTitleModal = (props) => {
   const [modalTitle, setModalTitle] = useState(title);
   const [noteTitle, setNoteTitle] = useState(title);
 
-  const { updateNote } = useContext(NotesContext);
+  const dispatch = useDispatch();
 
   const saveOnPressHandler = () => {
     setNoteTitle(modalTitle);
     setIsModalVisible(false);
-    updateNote({
-      id: noteId,
-      title: modalTitle,
-    });
+    dispatch({
+      type: `notes/${ActionTypes.updateNoteTitle}`,
+      payload: { id: noteId, title: modalTitle },
+    })
   };
 
   return (

@@ -1,10 +1,13 @@
 import { StatusBar } from 'expo-status-bar';
-import React, { useContext } from 'react';
+import React, { useEffect } from 'react';
 import { FlatList, Text, TouchableOpacity, View } from 'react-native';
-import { NotesContext } from '../../context/NotesContext';
+import { useDispatch, useSelector } from 'react-redux';
+import { AntDesign } from '@expo/vector-icons';
+
+import { ActionTypes } from '../../store/actions/ActionTypes';
+import { fetchNotes } from '../../store/slices/notesSlice';
 
 import { styles } from './NotesList.styles';
-
 
 const NoteItem = ({ title, id, content, handleNotePress }) => {
   return (
@@ -13,8 +16,12 @@ const NoteItem = ({ title, id, content, handleNotePress }) => {
       key={id}
       onPress={() => handleNotePress({ content, id, title })}>
       <View style={styles.notesTitleWrapper}>
-        <Text style={styles.notesTitle}>{title}</Text>
-        <Text>></Text>
+        <View style={styles.notesTitle}>
+          <Text style={styles.notesTitleText}>{title}</Text>
+          <View>
+            <AntDesign name="right" size={24} color="black" />
+          </View>
+        </View>
       </View>
       <View style={styles.notesHorizonLine} />
     </TouchableOpacity>
@@ -22,24 +29,32 @@ const NoteItem = ({ title, id, content, handleNotePress }) => {
 };
 
 export const NotesListScreen = ({ navigation }) => {
-  const { notes, addNote } = useContext(NotesContext);
+  const notes = useSelector(({ appStore: { notes } }) => notes);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchNotes());
+  }, [notes]);
 
   const renderItem = ({ item, handleNotePress }) => {
-    return <NoteItem title={item.title} id={item.id} content={item.content} handleNotePress={handleNotePress}/>;
+    return <NoteItem
+      title={item.title}
+      id={item.id}
+      content={item.content}
+      handleNotePress={handleNotePress}
+    />;
   };
 
   const handleNotePress = ({ content, id, title, shouldOpenTitleModal = false }) => {
     if (shouldOpenTitleModal) {
-      addNote({ content, id, title });
+      dispatch({
+        type: `notes/${ActionTypes.addNote}`,
+        payload: { content, id, title },
+      });
     }
     navigation.navigate(
       'Single note',
-      {
-        content,
-        id,
-        shouldOpenTitleModal,
-        title,
-      },
+      { content, id, shouldOpenTitleModal, title },
     );
   };
 
@@ -47,7 +62,7 @@ export const NotesListScreen = ({ navigation }) => {
     <View style={styles.container}>
       <Text style={styles.caption}>Super Notes App</Text>
       <View style={styles.horizontalLine} />
-      <View style={{ maxHeight: '84%' }}>
+      <View style={styles.notesListWrapper}>
         <FlatList
           data={notes}
           keyExtractor={item => item.id}

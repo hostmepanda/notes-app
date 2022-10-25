@@ -43,23 +43,34 @@ export const styles = StyleSheet.create({
     width: '70%',
   },
   notesTitle: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     paddingVertical: 10,
     width: '100%',
+    alignItems: 'center',
+  },
+  notesTitleText: {
+    fontSize: 20,
+  },
+  notesListWrapper: {
+    maxHeight: '84%',
   },
   notesTitleWrapper: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'start',
     alignItems: 'center',
+    width: '100%',
   },
   notesTitleContainer: {
-    width: '90%',
+    width: '95%',
     paddingLeft: 20,
     paddingTop: 15,
   },
   notesHorizonLine: {
     borderColor: 'rgba(133,133,133,0.35)',
     borderWidth: 0.5,
-    width: '70%',
+    width: '100%',
   },
 });

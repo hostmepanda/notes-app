@@ -1,6 +1,7 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Modal, Text, TouchableOpacity, View } from 'react-native';
-import { NotesContext } from '../../../context/NotesContext';
+import { useDispatch } from 'react-redux';
+import { ActionTypes } from '../../../store/actions/ActionTypes';
 
 import { deleteNoteModalStyle as styles } from './DeleteNote.modal.style';
 
@@ -8,11 +9,14 @@ export const DeleteNoteModal = ({ navigation, noteId }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isDeleted, setIsDeleted] = useState(false);
 
-  const { deleteNote } = useContext(NotesContext);
+  const dispatch = useDispatch();
 
   const deleteNoteHandler = () => {
     setIsModalVisible(false);
-    deleteNote(noteId);
+    dispatch({
+      type: `notes/${ActionTypes.removeNote}`,
+      payload: { id: noteId },
+    });
     setIsDeleted(true);
   };
 
