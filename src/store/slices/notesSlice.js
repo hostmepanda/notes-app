@@ -21,21 +21,6 @@ const actionHandlers = {
       }],
     };
   },
-  loadNotes: async (state) => {
-    try {
-      const allNotes = await DatabaseStore.getNotes();
-      return { ...state, notes: allNotes };
-    } catch (error) {
-      console.log('Error while loading notes:', error);
-      return state;
-    }
-  },
-  [ActionTypes.loadedNotes]: async (state, payload) => {
-    return {
-      ...state,
-      notes: payload?.notes ?? [],
-    };
-  },
   [ActionTypes.removeNote]: async (state, { payload: { id } }) => {
     try {
       await DatabaseStore.deleteNote({ id });
