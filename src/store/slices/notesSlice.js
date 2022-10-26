@@ -6,21 +6,6 @@ import { DatabaseStore } from '../databaseStore';
 import { ActionTypes } from '../actions/ActionTypes';
 
 const actionHandlers = {
-  [ActionTypes.addNote]: async (state, payload) => {
-    const addedNote = {
-      title: payload?.title ?? 'New amazing note',
-      content: payload?.content ?? '',
-    };
-    const { id: addedNoteId } = await DatabaseStore.createNote(addedNote);
-    return {
-      ...state,
-      notes: [{
-        ...state.notes,
-        ...addedNote,
-        id: addedNoteId,
-      }],
-    };
-  },
   [ActionTypes.removeNote]: async (state, { payload: { id } }) => {
     try {
       await DatabaseStore.deleteNote({ id });
@@ -54,6 +39,11 @@ export const fetchNotes = createAsyncThunk('notes/fetchNotes', async () => {
   return await DatabaseStore.getNotes();
 })
 
+export const createNote = createAsyncThunk(
+  'notes/createNote',
+  async ({ content, title }) => {
+    return await DatabaseStore.createNote({ content, title });
+  });
 
 const NotesSlice = createSlice({
   name: 'notes',
@@ -65,6 +55,12 @@ const NotesSlice = createSlice({
         return {
           ...state,
           notes: payload,
+        };
+      })
+      .addCase(createNote.fulfilled, (state, { payload: { id: addedNoteId } }) => {
+        return {
+          ...state,
+          addedNoteId,
         };
       })
   },

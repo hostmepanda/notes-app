@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, SafeAreaView, TextInput } from 'react-native';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+
 import { ActionTypes } from '../../store/actions/ActionTypes';
 import { ChangeTitleModal } from './Modals/ChangeTitle.modal';
 import { DeleteNoteModal } from './Modals/DeleteNote.modal';
@@ -17,19 +18,28 @@ const styles = StyleSheet.create({
 });
 
 export const SingleNoteScreen = ({ navigation, route: { params } }) => {
-  const [noteText, setNoteText] = React.useState(params?.content);
+  const [noteContent, setNoteContent] = useState(params?.content);
+  const [noteId, setNoteId] = useState(params.id);
+
   const dispatch = useDispatch();
+  const addedNoteId = useSelector(({ appStore: { addedNoteId } }) => addedNoteId);
+
+  useEffect(() => {
+    if (params.shouldAddNote && addedNoteId) {
+      setNoteId(addedNoteId);
+    }
+  }, [addedNoteId]);
 
   const handleOnTextInput = (text) => {
-    setNoteText(text);
+    setNoteContent(text);
   };
 
   useEffect(() => {
     dispatch({
       type: `notes/${ActionTypes.updateNoteContent}`,
-      payload: { id: params.id, content: noteText },
+      payload: { id: noteId, content: noteContent },
     });
-  }, [noteText]);
+  }, [noteContent]);
 
   useEffect(() => {
     navigation.setOptions({
@@ -38,14 +48,14 @@ export const SingleNoteScreen = ({ navigation, route: { params } }) => {
           {...props}
           title={params.title}
           shouldOpenTitleModal={params.shouldOpenTitleModal}
-          noteId={params.id}
+          noteId={noteId}
           navigation={navigation}
         />
       ),
       headerRight: (props) => <DeleteNoteModal
         {...props}
         navigation={navigation}
-        noteId={params.id}
+        noteId={noteId}
         shouldOpenTitleModal={params.shouldOpenTitleModal}
       />,
     });
@@ -59,7 +69,7 @@ export const SingleNoteScreen = ({ navigation, route: { params } }) => {
         numberOfLines={40}
         style={styles.input}
         onChangeText={handleOnTextInput}
-        value={noteText}
+        value={noteContent}
       />
     </SafeAreaView>
   );

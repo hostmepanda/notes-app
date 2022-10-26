@@ -1,24 +1,27 @@
 import React, { useState } from 'react';
 import { Modal, Text, TextInput, TouchableOpacity, View } from 'react-native';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { ActionTypes } from '../../../store/actions/ActionTypes';
 
 import { ChangeTitleModalStyle as styles } from './ChangeTitle.modal.style';
 
 export const ChangeTitleModal = (props) => {
-  const { title, shouldOpenTitleModal, noteId } = props;
+  const { title = 'New awesome note', shouldOpenTitleModal, noteId } = props;
   const [isModalVisible, setIsModalVisible] = useState(shouldOpenTitleModal ?? false);
   const [modalTitle, setModalTitle] = useState(title);
   const [noteTitle, setNoteTitle] = useState(title);
 
   const dispatch = useDispatch();
+  const addedNoteId = useSelector(({ appStore: { addedNoteId } }) => addedNoteId);
+
+  const id = addedNoteId ?? noteId;
 
   const saveOnPressHandler = () => {
     setNoteTitle(modalTitle);
     setIsModalVisible(false);
     dispatch({
       type: `notes/${ActionTypes.updateNoteTitle}`,
-      payload: { id: noteId, title: modalTitle },
+      payload: { id, title: modalTitle },
     })
   };
 

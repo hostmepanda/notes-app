@@ -29,7 +29,7 @@ export class DatabaseStore {
      });
   }
 
-  static createNote({ content, title }) {
+  static createNote({ content, title = 'New awesome note' }) {
     return new Promise((resolve, reject) => {
       localDb.transaction(tx => {
         tx.executeSql(

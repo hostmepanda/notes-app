@@ -4,8 +4,7 @@ import { FlatList, Text, TouchableOpacity, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { AntDesign } from '@expo/vector-icons';
 
-import { ActionTypes } from '../../store/actions/ActionTypes';
-import { fetchNotes } from '../../store/slices/notesSlice';
+import { createNote, fetchNotes } from '../../store/slices/notesSlice';
 
 import { styles } from './NotesList.styles';
 
@@ -45,16 +44,13 @@ export const NotesListScreen = ({ navigation }) => {
     />;
   };
 
-  const handleNotePress = ({ content, id, title, shouldOpenTitleModal = false }) => {
-    if (shouldOpenTitleModal) {
-      dispatch({
-        type: `notes/${ActionTypes.addNote}`,
-        payload: { content, id, title },
-      });
+  const handleNotePress = async ({ content, id, title, shouldOpenTitleModal = false, shouldAddNote = false }) => {
+    if (shouldAddNote) {
+      dispatch(createNote({ content, title }));
     }
     navigation.navigate(
       'Single note',
-      { content, id, shouldOpenTitleModal, title },
+      { content, id, shouldAddNote, shouldOpenTitleModal, title },
     );
   };
 
@@ -76,10 +72,8 @@ export const NotesListScreen = ({ navigation }) => {
         <TouchableOpacity
           style={styles.addButtonCircle}
           onPress={() => handleNotePress({
-            content: '',
-            id: (new Date()).valueOf(),
-            title: 'New awesome note',
             shouldOpenTitleModal: true,
+            shouldAddNote: true,
           })}
         >
           <Text style={styles.addButton}>+</Text>
